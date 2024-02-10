@@ -1,5 +1,16 @@
-body{
+body, .dropdown-menu{
+    width: 100vw;
     background-color: black;
+}
+
+.dropdown-menu{
+    inset: 15px auto auto 0px !important;
+}
+
+#dropdownMenu2:focus{
+    background-color: fuchsia;
+    border-color: fuchsia;
+    box-shadow: none;
 }
 
 .logo{
@@ -48,4 +59,14 @@ body{
 
 .btn-primary:hover{
     background-color: rgb(255, 100, 255);
+}
+
+.cart{
+    height: 80vh;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.cart > p{
+    color: white;
 }
