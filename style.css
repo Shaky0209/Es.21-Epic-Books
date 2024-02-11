@@ -7,7 +7,7 @@ body, .dropdown-menu{
     inset: 15px auto auto 0px !important;
 }
 
-#dropdownMenu2:focus{
+#dropdownMenu2:focus, .cardsBtn:focus{
     background-color: fuchsia;
     border-color: fuchsia;
     box-shadow: none;

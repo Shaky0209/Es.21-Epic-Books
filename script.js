@@ -1,6 +1,6 @@
 const cardCont = document.querySelector(".card-container");
 const searchInput = document.querySelectorAll(".search");
-// const cardsBtn = dcument.querySelectorAll("cardsBtn");
+const cart = document.querySelector(".cart");
 let bookMagazine;
 let dataJson;
 
@@ -10,7 +10,7 @@ fetch("https://striveschool-api.herokuapp.com/books")
         dataJson = json;
         booksShare(json);
         searchFilter(json);
-
+        getCart(bookMagazine);
     })
     .catch((err) => console.log("Error: " + err));
 
@@ -74,17 +74,15 @@ const booksShare = (array) => {
 }
 
 const searchFilter = () => {
-    console.log(dataJson);
-    console.log(searchInput[0].value.length);
+    
     if (searchInput[0].value || searchInput[1].value) {
         cardCont.innerHTML = "";
         let newArray = dataJson.filter((element) => {
-            console.log(element.title);
             if (element.title.toLowerCase().includes(searchInput[0].value.toLowerCase() ||searchInput[1].value.toLowerCase())) {
                 return element;
             }
         });
-        newArray.forEach((element) => {
+        newArray.forEach((element, index) => {
             let card = document.createElement("div");
             card.classList.add("col-8", "offset-2", "offset-sm-0", "col-sm-4", "col-md-3", "col-xl-2", "p-1");
             cardCont.appendChild(card);
@@ -117,6 +115,7 @@ const searchFilter = () => {
             buyBtn.type = "button";
             buyBtn.classList.add("cardsBtn", "btn", "btn-primary", "d-flex", "justify-content-center", "align-items-center", "col-4");
             buyBtn.style.height = "30px";
+            buyBtn.attributes.add("i");
             cardFoot.appendChild(buyBtn);
 
             let iconBuy = document.createElement("i");
@@ -139,6 +138,19 @@ const searchFilter = () => {
         });
     }
 };
+
+
+const getCart = ()=>{
+    const cardsBtn = document.querySelectorAll(".cardsBtn");
+
+    cardsBtn.forEach((element)=>{
+        element.addEventListener("click", (event)=>{
+            buyedObj = event.target.parentNode.parentNode.cloneNode(true);
+            cart.appendChild(buyedObj);
+        });
+    });
+};
+
 
 searchInput.forEach((element) => {
     element.addEventListener("keyup", searchFilter);
