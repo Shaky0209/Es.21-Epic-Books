@@ -7,11 +7,23 @@ body, .dropdown-menu{
     background-color: black;
 }
 
+nav{
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    background-color: black;
+    z-index: 1;
+}
+
+.card-container{
+    margin-top: 100px;
+}
+
 .dropdown-menu{
     inset: 15px auto auto 0px !important;
 }
 
-#dropdownMenu2:focus, .cardsBtn:focus{
+#dropdownMenu2:focus, .cardsBtn:focus, .cart-delete:focus{
     background-color: fuchsia;
     border-color: fuchsia;
     box-shadow: none;
@@ -99,6 +111,7 @@ body, .dropdown-menu{
     background-color: rgb(73, 73, 73);
 }
 
+
 .cart-empty{
     color: white;
 }
@@ -115,6 +128,14 @@ body, .dropdown-menu{
     border: 1px solid white;
     border-radius: 5px;
     background-color: rgb(73, 73, 73);
+}
+
+.cart-delete{
+    position: absolute;
+    right: 100px;
+    bottom: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
 }
 
 footer{
