@@ -129,7 +129,6 @@ const getCart = ()=>{
     const cardsBtn = document.querySelectorAll(".cardsBtn");
     const cart = document.querySelector(".cart");
     const cartEmpty = document.querySelector(".cart-empty");
-    console.log(cartEmpty);
     
     cardsBtn.forEach((element)=>{
         element.addEventListener("click", (event)=>{
@@ -155,17 +154,13 @@ const getCart = ()=>{
                 let objToRemove = event.target.parentNode.parentNode.parentNode;
                 objToRemove.remove();
 
-                console.log(objCounter);
                 if(objCounter === 0){
-                    console.log("d-block");
                     cartEmpty.classList.remove("d-none");
                 }
 
             });
 
-            console.log(objCounter);
             if(objCounter > 0){
-                console.log("d-none")
                 cartEmpty.classList.add("d-none");
             }
         });
