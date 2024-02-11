@@ -1,3 +1,7 @@
+body{
+    position: relative;
+}
+
 body, .dropdown-menu{
     width: 100vw;
     background-color: black;
@@ -61,12 +65,58 @@ body, .dropdown-menu{
     background-color: rgb(255, 100, 255);
 }
 
-.cart{
-    height: 80vh;
-    border: 1px solid white;
+.myModal{
+    position: absolute;
+    min-height: 200px;
+    width: calc(100vw - 25px);
+    top: 5px;
+    left: 5px;
+    background-color: black;
+    border: 1px solid rgb(73, 73, 73);
     border-radius: 10px;
 }
 
-.cart > p{
+.myModal-header{
+    border-bottom: 1px solid rgb(73, 73, 73);
+}
+
+.myModal-title{
     color: white;
+    text-shadow: 2px 2px 2px fuchsia;
+}
+
+.myModal-footer{
+    height: 50px;
+    border-top: 1px solid rgb(73, 73, 73);
+}
+
+.modal-btnClose{
+    height: 30px;
+    width: 30px;
+    font-weight: bold;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: rgb(73, 73, 73);
+}
+
+.cart-empty{
+    color: white;
+}
+
+.myModal-footer{
+    position: relative;
+}
+
+.checkoutBtn{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    color: white;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: rgb(73, 73, 73);
+}
+
+footer{
+    height: 300px;
 }

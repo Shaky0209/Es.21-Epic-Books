@@ -16,7 +16,7 @@
                 <li class="link-nav"><a href="#">This Week!</a></li>
                 <li class="link-nav"><a href="#">Sales</a></li>
                 <li class="link-nav"><a href="#">Contacts</a></li>
-                <li class="link-nav"><a href="cart.html">Cart <i class="fa-solid fa-cart-shopping"></i></a></li>
+                <li class="link-nav"><a class="cartLink">Cart <i class="fa-solid fa-cart-shopping"></i></a></li>
             </ul>
             <input type="text" class="search" placeholder="Enter your search">
         </div>
@@ -37,7 +37,7 @@
                 <li class="link-nav"><a href="#">This week</a></li>
                 <li class="link-nav"><a href="#">Sales</a></li>
                 <li class="link-nav"><a href="#">Contacts</a></li>
-                <li class="link-nav"><a href="#">Cart <i class="fa-solid fa-cart-shopping"></i></a></li>
+                <li class="link-nav"><a class="cartLink">Cart <i class="fa-solid fa-cart-shopping"></i></a></li>
                 <li class="row social d-flex justify-content-center">
                     <i class="fa-brands fa-facebook col-2"></i>
                     <i class="fa-brands fa-instagram col-2"></i>
@@ -56,6 +56,26 @@
 
         </div>
     </div>
+
+    <div class="myModal d-flex flex-column justify-content-between d-none">
+        <div class="myModal-header d-flex justify-content-between align-items-center">
+            <h4 class="myModal-title py-2 px-3">Your Cart</h4>
+            <button type="button" class="modal-btnClose mx-3">X</button>
+        </div>
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <p class="cart-empty">Your shopping cart is empty</p>
+        </div>
+        <div class="myModal-content cart container-fluid row">
+
+        </div>
+        <div class="myModal-footer mt-2">
+            <button type="button" class="checkoutBtn">Checkout</button>
+        </div>
+
+
+    </div>
+
+    <footer></footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/c2c086fb37.js" crossorigin="anonymous"></script>

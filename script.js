@@ -1,6 +1,9 @@
 const cardCont = document.querySelector(".card-container");
 const searchInput = document.querySelectorAll(".search");
-const cart = document.querySelector(".cart");
+const modalBtnCls = document.querySelector(".modal-btnClose")
+const myModal = document.querySelector(".myModal");
+const cartLink = document.querySelector(".cartLink");
+let objCounter = 0;
 let bookMagazine;
 let dataJson;
 
@@ -49,21 +52,11 @@ const booksShare = (array) => {
         buyBtn.type = "button";
         buyBtn.classList.add("cardsBtn", "btn", "btn-primary", "d-flex", "justify-content-center", "align-items-center", "col-4");
         buyBtn.style.height = "30px";
+        buyBtn.innerText = "Buy";
         cardFoot.appendChild(buyBtn);
 
-        let iconBuy = document.createElement("i");
-        iconBuy.classList.add("fa-solid", "fa-cart-plus", "pt-1");
-        iconBuy.style.fontSize = "10pt";
-        buyBtn.appendChild(iconBuy);
-
-        let labelBtn = document.createElement("p");
-        labelBtn.innerText = "Buy";
-        labelBtn.style.color = "white";
-        labelBtn.classList.add("m-0", "ms-2");
-        buyBtn.appendChild(labelBtn);
-
         let price = document.createElement("span");
-        price.classList.add("col-4", "col-sm-8");
+        price.classList.add("col-3", "col-sm-7");
         price.style.color = "white";
         price.style.fontSize = "10pt";
         price.innerText = "Price $ " + element.price;
@@ -82,7 +75,8 @@ const searchFilter = () => {
                 return element;
             }
         });
-        newArray.forEach((element, index) => {
+        
+        newArray.forEach((element) => {
             let card = document.createElement("div");
             card.classList.add("col-8", "offset-2", "offset-sm-0", "col-sm-4", "col-md-3", "col-xl-2", "p-1");
             cardCont.appendChild(card);
@@ -115,43 +109,73 @@ const searchFilter = () => {
             buyBtn.type = "button";
             buyBtn.classList.add("cardsBtn", "btn", "btn-primary", "d-flex", "justify-content-center", "align-items-center", "col-4");
             buyBtn.style.height = "30px";
-            buyBtn.attributes.add("i");
+            buyBtn.innerText = "Buy";
             cardFoot.appendChild(buyBtn);
 
-            let iconBuy = document.createElement("i");
-            iconBuy.classList.add("fa-solid", "fa-cart-plus", "pt-1");
-            iconBuy.style.fontSize = "10pt";
-            buyBtn.appendChild(iconBuy);
-
-            let labelBtn = document.createElement("p");
-            labelBtn.innerText = "Buy";
-            labelBtn.style.color = "white";
-            labelBtn.classList.add("m-0", "ms-2");
-            buyBtn.appendChild(labelBtn);
-
             let price = document.createElement("span");
-            price.classList.add("col-4", "col-sm-8");
+            price.classList.add("col-4", "col-sm-6",);
             price.style.color = "white";
             price.style.fontSize = "10pt";
             price.innerText = "Price $ " + element.price;
             cardFoot.appendChild(price);
+
         });
+        getCart();
     }
 };
 
 
 const getCart = ()=>{
     const cardsBtn = document.querySelectorAll(".cardsBtn");
-
+    const cart = document.querySelector(".cart");
+    const cartEmpty = document.querySelector(".cart-empty");
+    console.log(cartEmpty);
+    
     cardsBtn.forEach((element)=>{
         element.addEventListener("click", (event)=>{
-            buyedObj = event.target.parentNode.parentNode.cloneNode(true);
+            objCounter++;
+            buyedObj = event.target.parentNode.parentNode.parentNode.cloneNode(true);
+            const btnToRemove = buyedObj.querySelector(".cardsBtn");
+            const btnSide = buyedObj.querySelector("div.row.d-flex.justify-content-between.ps-2");
+            btnToRemove.remove();
+
+            let removeBtn = document.createElement("button");
+            removeBtn.type = "button";
+            removeBtn.classList.add("removeBtn", "btn", "btn-secondary", "d-flex", "justify-content-center", "align-items-center", "col-4", "me-3");
+            removeBtn.style.height = "30px";
+            removeBtn.style.fontSize = "9pt";
+            removeBtn.style.border = "1px solid white";
+            removeBtn.innerText = "Remove";
+            btnSide.appendChild(removeBtn);
+
             cart.appendChild(buyedObj);
+
+            removeBtn.addEventListener("click", (event)=>{
+                objCounter--;
+                let objToRemove = event.target.parentNode.parentNode.parentNode;
+                objToRemove.remove();
+
+                console.log(objCounter);
+                if(objCounter === 0){
+                    console.log("d-block");
+                    cartEmpty.classList.remove("d-none");
+                }
+
+            });
+
+            console.log(objCounter);
+            if(objCounter > 0){
+                console.log("d-none")
+                cartEmpty.classList.add("d-none");
+            }
         });
     });
 };
 
-
 searchInput.forEach((element) => {
     element.addEventListener("keyup", searchFilter);
 });
+
+modalBtnCls.addEventListener("click", ()=>{myModal.classList.add("d-none")});
+
+cartLink.addEventListener("click", ()=>{myModal.classList.remove("d-none")});
