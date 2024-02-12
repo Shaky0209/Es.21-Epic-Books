@@ -2,7 +2,7 @@ const cardCont = document.querySelector(".card-container");
 const searchInput = document.querySelectorAll(".search");
 const modalBtnCls = document.querySelector(".modal-btnClose")
 const myModal = document.querySelector(".myModal");
-const cartLink = document.querySelector(".cartLink");
+const cartLink = document.querySelectorAll(".cartLink");
 const cartDelete = document.querySelector(".cart-delete");
 const myModalContent = document.querySelector(".myModal-content");
 const objCount = document.querySelector(".obj-count");
@@ -13,8 +13,6 @@ let dataJson;
 fetch("https://striveschool-api.herokuapp.com/books")
     .then((response) => response.json())
     .then((json) => {
-        console.log(json);
-
         dataJson = json;
         booksShare(json);
         searchFilter(json);
@@ -56,7 +54,7 @@ const booksShare = (array) => {
 
         let idd = document.createElement("p");
         idd.innerText = element.asin;
-        idd.classList.add("id");
+        idd.classList.add("id", "d-none");
         objHead.appendChild(idd);
 
         let cardFoot = document.createElement("div");
@@ -85,10 +83,7 @@ const searchFilter = () => {
     
     if (searchInput[0].value || searchInput[1].value) {
         cardCont.innerHTML = "";
-        console.log(bookMagazine);
         let newArray = bookMagazine.filter((element) => {
-            console.log(element);
-
             if (element.innerText.toLowerCase().includes(searchInput[0].value.toLowerCase() ||searchInput[1].value.toLowerCase())) {
                 return element;
             }
@@ -139,15 +134,12 @@ const getCart = ()=>{
                 let istantCart = document.querySelector(".cart");
                 let idAll = istantCart.querySelectorAll(".id");
                 idAll.forEach((element)=>{
-                    console.log(element.innerText, id);
                     if(element.innerText === id){
-                        console.log(true);
                         card.style.border = "2px solid fuchsia";
                     }else{
-                        console.log(false);
                         card.style.border = "none";
-                    }                    
-                })
+                    };                    
+                });
 
                 if(objCounter === 0){
                     cartEmpty.classList.remove("d-none");
@@ -183,6 +175,9 @@ searchInput.forEach((element) => {
     element.addEventListener("keyup", searchFilter);
 });
 
+cartLink.forEach((element)=>{
+    element.addEventListener("click", ()=>{myModal.classList.remove("d-none")});
+});
+
 modalBtnCls.addEventListener("click", ()=>{myModal.classList.add("d-none")});
-cartLink.addEventListener("click", ()=>{myModal.classList.remove("d-none")});
 cartDelete.addEventListener("click", deleteAll);
