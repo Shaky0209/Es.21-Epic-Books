@@ -13,6 +13,8 @@ let dataJson;
 fetch("https://striveschool-api.herokuapp.com/books")
     .then((response) => response.json())
     .then((json) => {
+        console.log(json);
+
         dataJson = json;
         booksShare(json);
         searchFilter(json);
@@ -52,6 +54,11 @@ const booksShare = (array) => {
         title.style.color = "white";
         objHead.appendChild(title);
 
+        let idd = document.createElement("p");
+        idd.innerText = element.asin;
+        idd.classList.add("id");
+        objHead.appendChild(idd);
+
         let cardFoot = document.createElement("div");
         cardFoot.classList.add("cardFoot", "row", "d-flex", "justify-content-between", "ps-2");
         objCont.appendChild(cardFoot);
@@ -90,8 +97,6 @@ const searchFilter = () => {
         newArray.forEach((element)=>{
             cardCont.appendChild(element);
         });
-        
-        getCart();
     }
 };
 
@@ -108,10 +113,11 @@ const getCart = ()=>{
             let buyedObj = originObj.cloneNode(true);
             const btnToRemove = buyedObj.querySelector(".cardsBtn");
             const btnSide = buyedObj.querySelector("div.row.d-flex.justify-content-between.ps-2");
-            const card = originObj.querySelector("div.d-flex.flex-column.justify-content-between.p-2");
+            const card = originObj.querySelector(".objCont");
+            const objCont = buyedObj.querySelector(".objCont");
             card.style.border = "2px solid fuchsia";
             btnToRemove.remove();
-
+            
             let removeBtn = document.createElement("button");
             removeBtn.type = "button";
             removeBtn.classList.add("removeBtn", "btn", "btn-secondary", "d-flex", "justify-content-center", "align-items-center", "col-3", "me-3");
@@ -120,13 +126,28 @@ const getCart = ()=>{
             removeBtn.style.border = "1px solid white";
             removeBtn.innerText = "Remove";
             btnSide.appendChild(removeBtn);
-
+            
+            objCont.style.border = "none";
             cart.appendChild(buyedObj);
             removeBtn.addEventListener("click", (event)=>{
                 objCounter--;
+                let id = event.target.parentNode.parentNode.querySelector(".id").innerText;
                 card.style.border = "none";
                 let objToRemove = event.target.parentNode.parentNode.parentNode;
                 objToRemove.remove();
+                             
+                let istantCart = document.querySelector(".cart");
+                let idAll = istantCart.querySelectorAll(".id");
+                idAll.forEach((element)=>{
+                    console.log(element.innerText, id);
+                    if(element.innerText === id){
+                        console.log(true);
+                        card.style.border = "2px solid fuchsia";
+                    }else{
+                        console.log(false);
+                        card.style.border = "none";
+                    }                    
+                })
 
                 if(objCounter === 0){
                     cartEmpty.classList.remove("d-none");
