@@ -218,9 +218,39 @@ const deleteAll = () => {
 const detailsFunc = (event) => {
     let endpoint = "/details.html";
     let objId = event.target.querySelector(".id1").innerText;
-    console.log(objId);
     window.location.href = `${endpoint}?id=${objId}`;
 };
+
+const checkOutFnc = ()=>{
+    let cart = document.querySelector(".cart");
+    const cartObjs = myModal.querySelectorAll(".priceValue");
+    const cards = document.querySelectorAll(".objCont");
+    cards.forEach((element)=>{element.style.border = "none";});    
+    let sum = 0;
+    cartObjs.forEach((element)=>{
+        sum += Number(element.innerText);
+    });
+    cart.innerHTML = "";
+    let responseCont = document.createElement("div");
+    responseCont.classList.add("response-cont");
+    let responseLabel = document.createElement("p");
+    responseLabel.innerText =`Total Price for your Shopping is $ ${sum.toFixed(2)}`;
+    responseLabel.style.color = "white";
+    responseLabel.style.fontSize = "20pt";
+    responseLabel.style.textAlign = "center";
+    responseCont.appendChild(responseLabel);
+    cart.appendChild(responseCont);
+};
+
+const closeModal = ()=>{
+    let response = document.querySelector(".response-cont");
+    if(response){
+        response.remove();
+        deleteAll();
+    }
+    myModal.classList.add("d-none");
+}
+
 
 searchInput.forEach((element) => {
     element.addEventListener("keyup", searchFilter);
@@ -230,30 +260,7 @@ cartLink.forEach((element) => {
     element.addEventListener("click", () => { myModal.classList.remove("d-none") });
 });
 
-const checkOutFnc = ()=>{
-    let cart = document.querySelector(".cart");
-    const cartObjs = myModal.querySelectorAll(".priceValue");
-    const cards = document.querySelectorAll(".objCont");
-    cards.forEach((element)=>{element.style.border = "none";});    
-    let sum = 0;
-    cartObjs.forEach((element)=>{
-        console.log(element.innerText);
-        sum += Number(element.innerText);
-        console.log(sum);
-    });
-    cart.innerHTML = "";
-    let responseCont = document.createElement("div");
-    let responseLabel = document.createElement("p");
-    responseLabel.innerText =`Total Price for your Shopping is $ ${sum.toFixed(2)}`;
-    responseLabel.style.color = "white";
-    responseLabel.style.fontSize = "20pt";
-    responseLabel.style.textAlign = "center";
-    responseCont.appendChild(responseLabel);
-    cart.appendChild(responseCont);
-    console.log(cards);
-};
-
-modalBtnCls.addEventListener("click", () => { myModal.classList.add("d-none") });
-modalBtnCls2.addEventListener("click", () => { myModal.classList.add("d-none") });
+modalBtnCls.addEventListener("click", closeModal);
+modalBtnCls2.addEventListener("click", closeModal);
 cartDelete.addEventListener("click", deleteAll);
 checkOutBtn.addEventListener("click", checkOutFnc);
