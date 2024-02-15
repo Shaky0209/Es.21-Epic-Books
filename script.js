@@ -10,16 +10,12 @@ const objCount = document.querySelector(".obj-count");
 const detailsBtn = document.getElementsByClassName("detailsBtn");
 const checkOutBtn = document.querySelector(".checkOutBtn");
 
-
-
 let objCounter = 0;
 let bookMagazine;
-let dataJson;
 
 fetch("https://striveschool-api.herokuapp.com/books")
     .then((response) => response.json())
     .then((json) => {
-        dataJson = json;
         booksShare(json);
         searchFilter(json);
         getCart(bookMagazine);
@@ -114,12 +110,19 @@ const booksShare = (array) => {
 }
 
 const searchFilter = () => {
+    if(!(searchInput[0].value || searchInput[1].value)){
+        cardCont.innerHTML ="";
+        bookMagazine.forEach((element)=>{
+            cardCont.appendChild(element);
+        });
+    };
+
     if (searchInput[0].value || searchInput[1].value) {
         cardCont.innerHTML = "";
         let newArray = bookMagazine.filter((element) => {
             if (element.innerText.toLowerCase().includes(searchInput[0].value.toLowerCase() || searchInput[1].value.toLowerCase())) {
                 return element;
-            }
+            };
         });
         newArray.forEach((element) => {
             cardCont.appendChild(element);
